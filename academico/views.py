@@ -21,3 +21,23 @@ def eliminarCurso(request, codigo):
     curso.delete()
     
     return redirect('/')
+
+def edicionCurso(request, codigo):
+    curso = Curso.objects.get(codigo=codigo)
+    
+    return render(request, 'edicionCurso.html', {"curso":curso})
+
+def editarCurso(request):
+    
+    codigo = request.POST['txtCodigo']
+    nombre = request.POST['txtNombre']
+    creditos = request.POST['numCreditos']
+    
+    curso = Curso.objects.get(codigo=codigo)
+    
+    curso.nombre = nombre
+    curso.creditos = creditos
+    curso.save()
+    
+    return redirect('/')
+
